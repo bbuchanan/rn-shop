@@ -8,8 +8,10 @@ import {
   Platform
 } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import HeaderButton from "../../components/UI/HeaderButton";
+
+import * as productsActions from "../../store/actions/products";
 
 const EditProductScreen = props => {
   const prodId = props.navigation.getParam("productId");
@@ -27,9 +29,18 @@ const EditProductScreen = props => {
     editedProduct ? editedProduct.description : ""
   );
 
+  const dispatch = useDispatch();
   const submitHandler = useCallback(() => {
-    console.log("Submitting");
-  }, []);
+    if (editedProduct) {
+      dispatch(
+        productsActions.updateProduct(prodId, title, description, imageUrl)
+      );
+    } else {
+      dispatch(
+        productsActions.createProduct(title, description, imageUrl, +price)
+      );
+    }
+  }, [dispatch, prodId, title, description, imageUrl, price]);
 
   useEffect(() => {
     props.navigation.setParams({ submit: submitHandler });

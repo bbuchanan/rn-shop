@@ -41,6 +41,13 @@ const ProductsOverviewScreen = props => {
     loadProducts();
   }, [dispatch]);
 
+  useEffect(() => {
+    const willFocus = props.navigation.addListener("willFocus", loadProducts);
+    return () => {
+      willFocus.remove();
+    };
+  }, [loadProducts]);
+
   const selectItemHandler = (id, title) => {
     props.navigation.navigate("ProductDetail", {
       productId: id,

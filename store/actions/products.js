@@ -12,7 +12,7 @@ export const fetchProducts = () => {
         "https://rn-shop-a3001.firebaseio.com/products.json"
       );
 
-      if (response.ok) {
+      if (!response.ok) {
         throw new Error("Something went wrong!");
       }
 

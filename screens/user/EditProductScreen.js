@@ -30,6 +30,7 @@ const EditProductScreen = props => {
   );
 
   const dispatch = useDispatch();
+
   const submitHandler = useCallback(() => {
     if (editedProduct) {
       dispatch(
@@ -40,6 +41,8 @@ const EditProductScreen = props => {
         productsActions.createProduct(title, description, imageUrl, +price)
       );
     }
+
+    props.navigation.goBack();
   }, [dispatch, prodId, title, description, imageUrl, price]);
 
   useEffect(() => {

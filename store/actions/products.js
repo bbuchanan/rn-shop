@@ -39,6 +39,7 @@ export const fetchProducts = () => {
     }
   };
 };
+
 export const deleteProduct = productId => {
   return async dispatch => {
     const response = await fetch(
@@ -52,7 +53,7 @@ export const deleteProduct = productId => {
       throw new Error("Something went wrong!");
     }
 
-    return { type: DELETE_PRODUCT, pid: productId };
+    dispatch({ type: DELETE_PRODUCT, pid: productId });
   };
 };
 
